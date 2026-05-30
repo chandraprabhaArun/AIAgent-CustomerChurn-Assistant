@@ -1,0 +1,77 @@
+# Model Configuration — TeleConnect Churn Prediction
+# Version: 1.0.0
+
+model:
+  name: "xgboost_churn_v1"
+  type: "XGBClassifier"
+  framework: "scikit-learn pipeline"
+  
+  hyperparameters:
+    n_estimators: 500
+    max_depth: 3
+    learning_rate: 0.03
+    subsample: 0.8
+    colsample_bytree: 0.8
+    min_child_weight: 4
+    gamma: 0.1
+    reg_alpha: 0.1
+    reg_lambda: 1.0
+    eval_metric: "logloss"
+    scale_pos_weight: 1  # SMOTE handles imbalance
+    random_state: 42
+
+  tuning:
+    method: "manual grid search + 5-fold stratified CV + SMOTE + threshold tuning"
+    configs_tested: 5
+    best_cv_auc: 0.8154
+    test_auc: 0.7131
+    best_threshold: 0.38
+
+  preprocessing:
+    numeric:
+      method: "StandardScaler"
+      columns:
+        - age
+        - tenure_months
+        - monthly_charges
+        - total_charges
+        - avg_monthly_gb_used
+        - num_support_tickets
+        - avg_monthly_minutes
+        - satisfaction_score
+        - num_additional_services
+        - charge_per_tenure          # engineered
+        - support_rate               # engineered
+        - tenure_x_satisfaction      # engineered v2
+        - charges_per_service        # engineered v2
+        - is_new_customer            # engineered v2
+    categorical:
+      method: "OneHotEncoder"
+      drop: "first"
+      handle_unknown: "ignore"
+      columns:
+        - gender
+        - contract_type
+        - internet_service
+        - phone_service
+        - payment_method
+
+risk_thresholds:
+  high: 0.7      # probability >= 0.7
+  medium: 0.4    # probability >= 0.4
+  low: 0.0       # probability < 0.4
+
+data_validation:
+  age_range: [18, 100]
+  tenure_range: [0, 72]
+  satisfaction_range: [1, 10]
+  
+training:
+  test_size: 0.2
+  stratify: true
+  random_state: 42
+
+artifacts:
+  model_path: "models/churn_model.joblib"
+  metadata_path: "models/model_metadata.joblib"
+  data_path: "data/cleaned_data.csv"
