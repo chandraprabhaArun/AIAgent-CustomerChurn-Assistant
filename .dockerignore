@@ -1,0 +1,15 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.git/
+.gitignore
+.idea/
+.vscode/
+*.egg-info/
+dist/
+build/
+.ipynb_checkpoints/
+.DS_Store
+*.docx
+.streamlit/secrets.toml
