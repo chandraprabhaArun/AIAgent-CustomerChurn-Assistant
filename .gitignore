@@ -27,3 +27,17 @@ Thumbs.db
 
 # Docs (binary)
 *.docx
+# Exclude heavy/generated folders
+venv/
+.venv/
+models/
+part1/
+__pycache__/
+*.pyc
+*.joblib
+*.pkl
+.ipynb_checkpoints/
+data/cleaned_data.csv
+data/interaction_log.jsonl
+data/escalation_log.jsonl
+.DS_Store
