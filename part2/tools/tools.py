@@ -6,7 +6,15 @@ import json
 from datetime import datetime
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_PATH = os.path.join(BASE_DIR, '..', 'data', 'cleaned_data.csv')
+#DATA_PATH = os.path.join(BASE_DIR, '..', 'data', 'cleaned_data.csv')
+_possible_paths = [
+    os.path.join(BASE_DIR, '..', 'data', 'test_datafile.csv'),
+    os.path.join(BASE_DIR, '..', 'data', 'cleaned_data.csv'),
+    os.path.join(BASE_DIR, '..', 'test_datafile.csv'),
+    os.path.join(BASE_DIR, 'data', 'test_datafile.csv'),
+    'test_datafile.csv',
+]
+DATA_PATH = next((p for p in _possible_paths if os.path.exists(p)), _possible_paths[0])
 MODEL_PATH = os.path.join(BASE_DIR, '..', 'models', 'churn_model.joblib')
 METADATA_PATH = os.path.join(BASE_DIR, '..', 'models', 'model_metadata.joblib')
 
