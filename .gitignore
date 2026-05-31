@@ -1,43 +1,9 @@
-# Python
-venv/
-__pycache__/
-*.pyc
-*.pyo
-*.egg-info/
-dist/
-build/
-.eggs/
-
-# Jupyter
-.ipynb_checkpoints/
-
-# Environment
-.env
-.streamlit/secrets.toml
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-.DS_Store
-
-# OS
-Thumbs.db
-
-# Docs (binary)
-*.docx
-# Exclude heavy/generated folders
 venv/
 .venv/
-models/
-part1/
 __pycache__/
 *.pyc
-*.joblib
-*.pkl
 .ipynb_checkpoints/
-data/cleaned_data.csv
+.DS_Store
 data/interaction_log.jsonl
 data/escalation_log.jsonl
-.DS_Store
+.streamlit/secrets.toml
