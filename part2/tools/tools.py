@@ -15,8 +15,22 @@ _possible_paths = [
     'test_datafile.csv',
 ]
 DATA_PATH = next((p for p in _possible_paths if os.path.exists(p)), _possible_paths[0])
-MODEL_PATH = os.path.join(BASE_DIR, '..', 'models', 'churn_model.joblib')
-METADATA_PATH = os.path.join(BASE_DIR, '..', 'models', 'model_metadata.joblib')
+#MODEL_PATH = os.path.join(BASE_DIR, '..', 'models', 'churn_model.joblib')
+#METADATA_PATH = os.path.join(BASE_DIR, '..', 'models', 'model_metadata.joblib')
+MODEL_PATH = next(
+    (p for p in [
+        os.path.join(BASE_DIR, '..', 'models', 'churn_model.joblib'),
+        os.path.join(BASE_DIR, 'models', 'churn_model.joblib'),
+    ] if os.path.exists(p)),
+    os.path.join(BASE_DIR, '..', 'models', 'churn_model.joblib')
+)
+METADATA_PATH = next(
+    (p for p in [
+        os.path.join(BASE_DIR, '..', 'models', 'model_metadata.joblib'),
+        os.path.join(BASE_DIR, 'models', 'model_metadata.joblib'),
+    ] if os.path.exists(p)),
+    os.path.join(BASE_DIR, '..', 'models', 'model_metadata.joblib')
+)
 
 # Load dataset once for lookups
 _df = None
